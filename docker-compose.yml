@@ -1,0 +1,8 @@
+version: '2'
+services:
+  poe:
+    image: zate75/poedom
+    container_name: poe
+    ports:
+      - "80:2086"
+#
