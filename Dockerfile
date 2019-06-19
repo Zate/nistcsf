@@ -1,21 +1,21 @@
 FROM golang:latest as builder
-WORKDIR /go/src/github.com/zate/poedom/
-RUN go get -u github.com/golang/dep/cmd/dep
+WORKDIR /go/src/github.com/zate/simplenist/
+
 COPY main.go .
 COPY favicon.ico .
 COPY common.css .
 COPY public public
 COPY static static
 RUN dep init && dep ensure
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o poedom .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o simplenist .
 
 FROM scratch
 WORKDIR /
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-COPY --from=builder /go/src/github.com/zate/poedom/poedom .
-COPY --from=builder /go/src/github.com/zate/poedom/common.css .
-COPY --from=builder /go/src/github.com/zate/poedom/favicon.ico .
-COPY --from=builder /go/src/github.com/zate/poedom/public /public
-COPY --from=builder /go/src/github.com/zate/poedom/static /static
+COPY --from=builder /go/src/github.com/zate/simplenist/simplenist .
+COPY --from=builder /go/src/github.com/zate/simplenist/common.css .
+COPY --from=builder /go/src/github.com/zate/simplenist/favicon.ico .
+COPY --from=builder /go/src/github.com/zate/simplenist/public /public
+COPY --from=builder /go/src/github.com/zate/simplenist/static /static
 EXPOSE 2086
-CMD ["/poedom"]
+CMD ["/simplenist"]

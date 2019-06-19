@@ -1,8 +1,8 @@
-version: '2'
+version: '3'
 services:
   poe:
-    image: zate75/poedom
-    container_name: poe
+    image: zate75/simplenist
+    container_name: simplenist
     ports:
       - "80:2086"
 #
